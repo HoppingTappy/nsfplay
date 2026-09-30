@@ -225,7 +225,10 @@ void NES_FDS::Tick (UINT32 clocks)
     }
 
     // output volume caps at 32
-    INT32 vol_out = env_out[EVOL];
+    INT32 vol_out = last_vol;
+    if (((phase[TWAV]>>16)&0x3F) == 0){
+        vol_out = env_out[EVOL];
+    }
     if (vol_out > 32) vol_out = 32;
 
     // final output
